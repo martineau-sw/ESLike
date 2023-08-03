@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ESLike 
+namespace ESLike.Actor
 {
-    public class EntityMotor : MonoBehaviour
+    public class ActorMotor : MonoBehaviour
     {
         [Header("Movement")]
         [SerializeField]

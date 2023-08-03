@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ESLike.Actor;
 
-namespace ESLike 
+namespace ESLike.Player
 {
     public class PlayerInput : MonoBehaviour
     {
@@ -20,7 +21,7 @@ namespace ESLike
         Vector2 _lookInput;
         
         GameObject _player;
-        EntityMotor _motor;
+        ActorMotor _motor;
         PlayerCamera _characterCamera;
 
         bool _runToggle;
@@ -28,7 +29,7 @@ namespace ESLike
         void Awake()
         {
             _player = GameObject.FindWithTag("Player");
-            _motor = _player.GetComponent<EntityMotor>();
+            _motor = _player.GetComponent<ActorMotor>();
             _characterCamera = Camera.main.transform.root.GetComponent<PlayerCamera>();
 
             _moveAction = _actionAsset.FindActionMap("navigation").FindAction("move");

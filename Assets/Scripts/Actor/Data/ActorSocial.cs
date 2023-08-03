@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ESLike
+namespace ESLike.Actor
 {
-    public class EntitySocial : MonoBehaviour
+    public class ActorSocial : MonoBehaviour
     {
         public int[,] relationshipMatrix;
     }

@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ESLike.Entity.Extensions;
+using ESLike.Actor.Extensions;
 
-namespace ESLike.Entity
+namespace ESLike.Actor
 {
     [System.Serializable]
-    public class EntitySkills 
+    public class ActorSkills 
     {
         [SerializeField]
         Skill _heavyArmor;
@@ -33,7 +33,7 @@ namespace ESLike.Entity
         [SerializeField]
         Skill _alchemy;
 
-        public EntitySkills(EntityAttributes attributes)
+        public ActorSkills(ActorAttributes attributes)
         {
             _heavyArmor = new Skill(attributes.GetHeavyArmorBase());
             _lightArmor = new Skill(attributes.GetLightArmorBase());
@@ -59,7 +59,7 @@ namespace ESLike.Entity
         public ushort XP 
         {
             get => experience;
-            set => EntityUtility.Clamp(value, 0, ushort.MaxValue);
+            set => ActorUtility.Clamp(value, 0, ushort.MaxValue);
         }
 
         public int Level

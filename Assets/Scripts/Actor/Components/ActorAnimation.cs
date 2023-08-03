@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ESLike.Entity
+namespace ESLike.Actor
 {
-    public class EntityAnimation : MonoBehaviour
+    public class ActorAnimation : MonoBehaviour
     {
         Animator _animator;
         Rigidbody _rigidbody;
 
         Vector2 _horizontal = new Vector2();
 
-        EntityMotor _motor;
+        ActorMotor _motor;
         PlayerCamera _playerCamera;
 
         // Start is called before the first frame update
@@ -19,7 +19,7 @@ namespace ESLike.Entity
         {
             _animator = GetComponentInChildren<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
-            _motor = GetComponent<EntityMotor>();
+            _motor = GetComponent<ActorMotor>();
             _playerCamera = Camera.main.transform.root.GetComponent<PlayerCamera>();
         }
 

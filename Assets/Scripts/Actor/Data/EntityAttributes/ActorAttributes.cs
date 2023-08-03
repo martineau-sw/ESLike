@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace ESLike.Entity
+namespace ESLike.Actor
 {
-    [CreateAssetMenu(fileName = "EntityAttributes", menuName = "ScriptableObjects/Entity/Attributes", order = 1)]
-    public class EntityAttributes : ScriptableObject
+    [CreateAssetMenu(fileName = "ActorAttributes", menuName = "ScriptableObjects/Actor/Attributes", order = 1)]
+    public class ActorAttributes : ScriptableObject
     {
         const int ATTRIBUTE_CAP = 50;
 
@@ -26,32 +26,32 @@ namespace ESLike.Entity
         public int Strength 
         {
             get => _strength;
-            set => _strength = EntityUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _strength = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
         } 
         public int Constitution 
         {
             get => _constitution;
-            set => _constitution = EntityUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _constitution = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
         } 
         public int Dexterity 
         {
             get => _dexterity;
-            set => _dexterity = EntityUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _dexterity = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
         } 
         public int Intelligence 
         {
             get => _intelligence;
-            set => _intelligence = EntityUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _intelligence = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
         } 
         public int Wisdom 
         {
             get => _wisdom;
-            set => _wisdom = EntityUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _wisdom = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
         } 
         public int Charisma 
         {
             get => _charisma;
-            set => _charisma = EntityUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _charisma = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
         } 
     }
 }

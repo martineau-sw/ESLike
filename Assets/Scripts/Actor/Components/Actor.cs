@@ -2,33 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ESLike.Entity 
+namespace ESLike.Actor 
 {
-    public class EntityComponent : MonoBehaviour
+    public class Actor : MonoBehaviour
     {
         [SerializeField]
-        EntityAttributes _attributes;
+        ActorAttributes _attributes;
 
         [SerializeField]
-        EntityMeters _meters;
+        ActorMeters _meters;
         
         [SerializeField]
-        EntitySkills _skills;
+        ActorSkills _skills;
 
         [SerializeField]
-        EntityMotor _motor;
+        ActorMotor _motor;
 
-        public EntityAttributes Attributes => _attributes;
-        public EntityMeters Meters => _meters;
-        public EntitySkills Skills => _skills;
+        public ActorAttributes Attributes => _attributes;
+        public ActorMeters Meters => _meters;
+        public ActorSkills Skills => _skills;
 
         float _tickTimer;
 
         void Start() 
         {
-            _motor = GetComponent<EntityMotor>();
-            _meters = new EntityMeters(_attributes);
-            _skills = new EntitySkills(_attributes);
+            _motor = GetComponent<ActorMotor>();
+            _meters = new ActorMeters(_attributes);
+            _skills = new ActorSkills(_attributes);
         }
 
         void FixedUpdate()

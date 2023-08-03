@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using ESLike.Entity.Extensions;
+using ESLike.Actor.Extensions;
 
-namespace ESLike.Entity
+namespace ESLike.Actor
 {
     [System.Serializable]
-    public class EntityMeters
+    public class ActorMeters
     {
         [SerializeField]
         Meter _health;
@@ -19,7 +19,7 @@ namespace ESLike.Entity
         public Meter Focus => _focus;
         public Meter Breath => _breath;
 
-        public EntityMeters(EntityAttributes attributes)
+        public ActorMeters(ActorAttributes attributes)
         {
             _health = new Meter(attributes.GetMaxHealth(), attributes.GetHealthTick());
             _breath = new Meter(attributes.GetMaxBreath(), attributes.GetBreathTick());
@@ -52,7 +52,7 @@ namespace ESLike.Entity
         public int Value 
         {
             get => _value;
-            set => _value = EntityUtility.Clamp(value, 0, _max);
+            set => _value = ActorUtility.Clamp(value, 0, _max);
         }
 
         public int Regen 

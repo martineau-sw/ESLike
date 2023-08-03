@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using ESLike.Entity;
-using ESLike.Entity.Extensions;
+using ESLike.Actor;
+using ESLike.Actor.Extensions;
 
 namespace ESLike.UI
 {
@@ -17,7 +17,7 @@ namespace ESLike.UI
         Image _focusBar;
 
         [SerializeField]
-        EntityComponent _player;
+        Actor.Actor _player;
 
         // Update is called once per frame
         void LateUpdate()

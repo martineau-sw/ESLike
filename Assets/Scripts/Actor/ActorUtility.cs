@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ESLike.Entity
+namespace ESLike.Actor
 {
-    public static class EntityUtility
+    public static class ActorUtility
     {
         public static int Clamp(int value, int limit)
         {
