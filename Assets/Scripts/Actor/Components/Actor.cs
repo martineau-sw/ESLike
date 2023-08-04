@@ -22,8 +22,6 @@ namespace ESLike.Actor
         public ActorMeters Meters => _meters;
         public ActorSkills Skills => _skills;
 
-        float _tickTimer;
-
         void Start() 
         {
             _motor = GetComponent<ActorMotor>();
@@ -33,7 +31,6 @@ namespace ESLike.Actor
 
         void FixedUpdate()
         {
-            UpdateTick();
         }
 
         void LateUpdate() 
@@ -44,19 +41,6 @@ namespace ESLike.Actor
         void SprintStamina() 
         {
             _motor.CanSprint = _meters.Breath.Value > 0;
-            _meters.Breath.TickValue = _motor.Sprint ? -10 : 0;
-        }
-
-        void UpdateTick()
-        {
-            if(_tickTimer > 0f) 
-            { 
-                _tickTimer -= Time.deltaTime;
-                return;
-            }
-
-            _meters.Tick();
-            _tickTimer = 0.3f;
         }
     }
 }

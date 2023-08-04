@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ESLike.Utilities;
+
 
 namespace ESLike.Actor
 {
@@ -82,7 +84,7 @@ namespace ESLike.Actor
         {
             direction = Vector3.Lerp(_direction, direction, 6 * Time.deltaTime);
 
-            Vector3 targetPosition = _rigidbody.position + direction * GetMoveSpeed() * Time.deltaTime;
+            Vector3 targetPosition = _rigidbody.position + direction * Throttle() * Time.deltaTime;
 
             _direction = direction;
 
@@ -125,10 +127,10 @@ namespace ESLike.Actor
                 return;
             }
 
-            HardLanding = HardLanding && _moveDelay > 0f ? true : false;
+            HardLanding = HardLanding && _moveDelay > 0f;
         }
 
-        float GetMoveSpeed()
+        float Throttle()
         {
             if(_moveDelay > 0f)
             {
@@ -145,10 +147,9 @@ namespace ESLike.Actor
             Vector3 origin = transform.position + Vector3.up;
             origin += direction.normalized;
             Ray ray = new Ray(origin, Vector3.down);
-            RaycastHit hit;
             float height = 0;
 
-            if(Physics.Raycast(ray, out hit, 0.5f, _groundLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, 0.5f, _groundLayer))
             {
                 height = 0.5f - hit.distance;
             }
@@ -160,10 +161,9 @@ namespace ESLike.Actor
 
         bool CheckSlope(Vector3 direction) 
         {
-            RaycastHit hit;
             float angle = 0;
 
-            if(Physics.Linecast(transform.position, transform.position + direction.normalized * _collider.radius, out hit, _groundLayer))
+            if (Physics.Linecast(transform.position, transform.position + direction.normalized * _collider.radius, out RaycastHit hit, _groundLayer))
             {   
                 angle = Vector3.Angle(Vector3.up, hit.normal);
             }
@@ -175,8 +175,7 @@ namespace ESLike.Actor
         {
             float distance = 10;
             Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * distance);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, distance, _groundLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, distance, _groundLayer))
                 distance = hit.distance;
 
             groundDistance = distance - 0.5f;

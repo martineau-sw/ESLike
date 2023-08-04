@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ESLike.Actor.Extensions
 {
-    public static class EntityMetersExtensions 
+    public static class ActorMetersExtensions 
     {
         public static float HealthNormalized(this ActorMeters meters) 
         {

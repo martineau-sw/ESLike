@@ -21,21 +21,13 @@ namespace ESLike.Actor
 
         public ActorMeters(ActorAttributes attributes)
         {
-            _health = new Meter(attributes.GetMaxHealth(), attributes.GetHealthTick());
-            _breath = new Meter(attributes.GetMaxBreath(), attributes.GetBreathTick());
-            _focus = new Meter(attributes.GetMaxFocus(), attributes.GetFocusTick());
-        }
+            _health = new Meter(attributes.GetMaxHealth());
+            _breath = new Meter(attributes.GetMaxBreath());
+            _focus = new Meter(attributes.GetMaxFocus());
 
-        void SprintTick() 
-        {
-            _breath.TickValue = -5;
-        }
-
-        public void Tick() 
-        {
-            _health.Tick();
-            _breath.Tick();
-            _focus.Tick();
+            Tick.OnTick += (s, e) => _health.Tick_Regen(attributes.GetHealthTick());
+            Tick.OnTick += (s, e) => _breath.Tick_Regen(attributes.GetBreathTick());
+            Tick.OnTick += (s, e) => _focus.Tick_Regen(attributes.GetFocusTick());
         }
     }
 
@@ -44,8 +36,6 @@ namespace ESLike.Actor
     {
         [SerializeField]
         int _value;
-        int _regen;
-        int _tickValue;
         [SerializeField]
         int _max;
     
@@ -55,34 +45,21 @@ namespace ESLike.Actor
             set => _value = ActorUtility.Clamp(value, 0, _max);
         }
 
-        public int Regen 
-        {
-            get => _regen;
-            set => _regen = value < 0 ? 0 : value;
-        }
-
-        public int TickValue
-        {
-            get => _tickValue;
-            set => _tickValue = value;
-        }
-
         public int Max
         {
             get => _max;
             set => _max = value < 1 ? 1 : value;
         }
 
-        public Meter(int max, int regen) 
+        public Meter(int max) 
         {
-            _regen = regen;
             _value = max;
             _max = max;
         }
 
-        public void Tick() 
+        public void Tick_Regen(int value) 
         {
-            Value += _regen + _tickValue;
+            Value += value;
         }
     }
 

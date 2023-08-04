@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ESLike.Actor.Extensions
 {
-    public static class EntityAttributesExtensions 
+    public static class ActorAttributesExtensions 
     {
         const int METER_BASELINE = 100; 
         const int METER_MULTIPLIER = 5;
