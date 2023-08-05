@@ -11,10 +11,13 @@ namespace ESLike.Actor
         [Header("Movement")]
         [SerializeField]
         [Range(1, 10)]
-        float _runSpeed = 1;
+        float _baseSpeed = 1;
         [SerializeField]
-        [Range(1, 10)]
-        float _sprintSpeed;
+        [Range(0, 1)]
+        float _walkMultiplier;
+        [SerializeField]
+        [Range(1, 2)]
+        float _sprintMultiplier;
         [SerializeField]
         [Range(0, 75)]
         float _slopeLimit;
@@ -33,58 +36,67 @@ namespace ESLike.Actor
         [SerializeField]
         LayerMask _groundLayer;
 
-        [Header("State")]
-        [SerializeField]
-        bool _isSprinting;
-        [SerializeField]
-        bool _isGrounded;
-
-        [Header("Debug")]
-        public float groundDistance;
-        public float slopeAngle;
-        public float stepHeight;
-        public float footY;
-
         #region Internal
-        float _moveSpeed;
         float _moveDelay;
-
         Rigidbody _rigidbody;
         CapsuleCollider _collider;
+        Vector3 _direction;
         #endregion
         
         #region Properties
-
         public float Speed => _rigidbody.velocity.magnitude;
         public bool Sprint {get; set;}
-        public bool CanSprint {get; set;}
-        public bool Airborne => !_isGrounded;
+        public bool Grounded 
+        {
+            get 
+            {
+                float distance = 10;
+                Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * distance);
+                if (Physics.Raycast(ray, out RaycastHit hit, distance, _groundLayer))
+                    distance = hit.distance;
+
+                groundDistance = distance - 0.5f;
+
+                Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+                return distance - 0.5f <= _groundedDistance;
+            }
+        }
+        bool PreventMovement => _moveDelay > 0f;
+        bool Walk {get; set;}
         public bool HardLanding {get; private set;}
+        public float MoveMultiplier 
+        {
+            get 
+            {
+                if(ForceStop) return 0f;
+                if(Sprint) return _sprintMultiplier;
+                if(Walk) return _walkMultiplier;
+            }
+        }
+        float MoveSpeed => _baseSpeed * MoveMultiplier;
         #endregion
+
         void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<CapsuleCollider>();
         }
 
-        void LateUpdate()
+        void Update() 
         {
-            ReportState();
+            PreventMovementTimer();
         }
 
-        void ReportState()
+        void LateUpdate()
         {
-            _isGrounded = CheckGrounded();
-            GetLanding();
-        } 
-        
-        Vector3 _direction;
+            TriggerHardLanding();
+        }
 
         public void Move(Vector3 direction) 
         {
             direction = Vector3.Lerp(_direction, direction, 6 * Time.deltaTime);
 
-            Vector3 targetPosition = _rigidbody.position + direction * Throttle() * Time.deltaTime;
+            Vector3 targetPosition = _rigidbody.position + direction * MoveSpeed * Time.deltaTime;
 
             _direction = direction;
 
@@ -115,10 +127,10 @@ namespace ESLike.Actor
         {
             Vector3 velocity = _rigidbody.velocity;
             velocity.y = _jumpHeight;
-            if(input && CheckGrounded()) _rigidbody.velocity = velocity;
+            if(input && Grounded) _rigidbody.velocity = velocity;
         }
 
-        void GetLanding() 
+        void TriggerHardLanding() 
         {
             if(!_isGrounded && _rigidbody.velocity.y < -20) 
             {
@@ -130,16 +142,9 @@ namespace ESLike.Actor
             HardLanding = HardLanding && _moveDelay > 0f;
         }
 
-        float Throttle()
+        float PreventMovementTimer() 
         {
-            if(_moveDelay > 0f)
-            {
-                _moveDelay -= Time.deltaTime;
-                return 0f;
-            } 
-
-            if(CanSprint && Sprint) return _sprintSpeed;
-            return _runSpeed;
+            if(_moveDelay > 0f) _moveDelay -= Time.deltaTime; 
         }
 
         float GetStepHeight(Vector3 direction) 
@@ -169,19 +174,6 @@ namespace ESLike.Actor
             }
 
             return angle < _slopeLimit;
-        }
-
-        bool CheckGrounded() 
-        {
-            float distance = 10;
-            Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * distance);
-            if (Physics.Raycast(ray, out RaycastHit hit, distance, _groundLayer))
-                distance = hit.distance;
-
-            groundDistance = distance - 0.5f;
-
-            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-            return distance - 0.5f <= _groundedDistance;
         }
     }
 }

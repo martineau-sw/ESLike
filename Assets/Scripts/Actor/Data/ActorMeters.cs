@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,11 +39,55 @@ namespace ESLike.Actor
         int _value;
         [SerializeField]
         int _max;
+
+        public event EventHandler OnEmpty;
+        public event EventHandler OnRegen;
+        public event EventHandler OnDegen;
+        public event EventHandler OnFull;
     
         public int Value 
         {
             get => _value;
-            set => _value = ActorUtility.Clamp(value, 0, _max);
+            set 
+            {
+                // Clamp min
+                if(_value <= 0f) 
+                {
+                    if(value <= 0f) 
+                    {
+                        _value = 0f;
+                        return;
+                    }
+                    
+                }
+
+                // Clamp max
+                if(_value >= max) 
+                {
+                    if(value >= _max) 
+                    {
+                        _value = _max;
+                        return;
+                    }
+                }
+
+                if(value >= _max) 
+                {
+                    OnFull?.Invoke(this, null);
+                    return;
+                }
+
+                if(value <= 0f)
+                {
+                    OnEmpty?.Invoke(this, null);
+                    return;
+                }
+
+                if(value > _value) OnRegen?.Invoke(this, null);
+                if(value < _value) OnDegen?.Invoke(this, null);
+                _value = value;
+                
+            }
         }
 
         public int Max

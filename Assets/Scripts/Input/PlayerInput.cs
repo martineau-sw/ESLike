@@ -13,7 +13,7 @@ namespace ESLike.Player
         InputActionAsset _actionAsset;
 
         InputAction _moveAction;
-        InputAction _runAction;
+        InputAction _runActions;
         InputAction _sprintAction;
         InputAction _jumpAction;
         InputAction _lookAction;
@@ -26,7 +26,7 @@ namespace ESLike.Player
         ActorMotor _motor;
         PlayerCamera _characterCamera;
         #endregion
-        
+
         bool _runToggle;
 
         float SpeedMultiplier => _runToggle || _motor.Sprint ? 1f : 0.5f;
@@ -85,8 +85,9 @@ namespace ESLike.Player
         void WirePlayerMovement()
         {
             Vector2 moveInputRotated = _moveInput.Rotate(_characterCamera.transform.eulerAngles.y);
-            Vector3 direction = LerpClampXZ(direction, moveInputRotated.Vector2ToXZ(), 5f);
+            Vector3 direction = ClampXZ(direction, moveInputRotated.Vector2ToXZ(), 5f);
 
+            _motor.Walk = _runToggle;
             _motor.Sprint = _sprintAction.IsPressed();
 
             direction *= SpeedMultiplier;
@@ -107,9 +108,8 @@ namespace ESLike.Player
             if(_runAction.WasPressedThisFrame()) _runToggle = !_runToggle;
         }
 
-        Vector3 LerpClampXZ(Vector3 raw, Vector3 desired, float stepCoeffecient) 
+        Vector3 ClampXZ(Vector3 raw, Vector3 desired, float stepCoeffecient) 
         {
-            Vector3 direction = Vector3.Lerp(raw, desired, stepCoeffecient * Time.deltaTime);
             direction.x = Mathf.Clamp(direction.x, -1, 1);
             direction.z = Mathf.Clamp(direction.z, -1, 1);
 
