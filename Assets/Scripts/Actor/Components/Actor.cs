@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ESLike.Actor 
 {
-    public class Actor : MonoBehaviour
+    public class ActorMono : MonoBehaviour
     {
         [SerializeField]
         ActorAttributes _attributes;
@@ -18,6 +18,11 @@ namespace ESLike.Actor
         [SerializeField]
         ActorMotor _motor;
 
+        public Vector3 Direction;
+        public bool Jump;
+        public bool Sprint;
+        
+
         public ActorAttributes Attributes => _attributes;
         public ActorMeters Meters => _meters;
         public ActorSkills Skills => _skills;
@@ -27,6 +32,12 @@ namespace ESLike.Actor
             _motor = GetComponent<ActorMotor>();
             _meters = new ActorMeters(_attributes);
             _skills = new ActorSkills(_attributes);
+        }
+
+        void Update() 
+        {
+            _motor.Move(Direction);
+            _motor.Jump(Jump);
         }
 
         void FixedUpdate()
@@ -40,7 +51,7 @@ namespace ESLike.Actor
 
         void SprintStamina() 
         {
-            _motor.CanSprint = _meters.Breath.Value > 0;
+            
         }
     }
 }

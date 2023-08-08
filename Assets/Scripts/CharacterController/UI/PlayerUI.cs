@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using ESLike.Actor;
-using ESLike.Actor.Extensions;
 
 namespace ESLike.UI
 {
@@ -17,13 +16,24 @@ namespace ESLike.UI
         Image _focusBar;
 
         [SerializeField]
-        Actor.Actor _player;
+        ActorMono _player;
+
+        void Awake() 
+        {
+            SetMeterLength();
+            SetEvents();
+        }
 
         // Update is called once per frame
         void LateUpdate()
         {
-            UpdateMeterFill();
-            SetMeterLength();
+        }
+
+        void SetEvents()
+        {
+            _player.Meters.Health.OnChange += (s, e) => StartCoroutine(Bar(_healthBar, _player.Meters.Health.Normal));
+            _player.Meters.Focus.OnChange += (s, e) => StartCoroutine(Bar(_focusBar, _player.Meters.Focus.Normal));
+            _player.Meters.Breath.OnChange += (s, e) => StartCoroutine(Bar(_breathBar, _player.Meters.Breath.Normal));
         }
 
         void SetMeterLength()
@@ -33,21 +43,29 @@ namespace ESLike.UI
             RectTransform breathRect = _breathBar.rectTransform;
             RectTransform focusRect = _focusBar.rectTransform;
 
-            healthRect.sizeDelta = new Vector2(_player.Meters.Health.Max, healthRect.sizeDelta.y);
-            healthRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2(_player.Meters.Health.Max, healthRect.sizeDelta.y);
+            Vector2 sizeDelta = new Vector2 { y = healthRect.sizeDelta.y };
 
-            breathRect.sizeDelta = new Vector2(_player.Meters.Breath.Max, healthRect.sizeDelta.y);
-            breathRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2(_player.Meters.Breath.Max, healthRect.sizeDelta.y);
+            sizeDelta.x = _player.Meters.Health.Max;
+            healthRect.sizeDelta = sizeDelta;
+            healthRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
 
-            focusRect.sizeDelta = new Vector2(_player.Meters.Focus.Max, healthRect.sizeDelta.y);
-            focusRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = new Vector2(_player.Meters.Focus.Max, healthRect.sizeDelta.y);
+            sizeDelta.x = _player.Meters.Breath.Max;
+            breathRect.sizeDelta = sizeDelta;
+            breathRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
+
+            sizeDelta.x = _player.Meters.Focus.Max;
+            focusRect.sizeDelta = sizeDelta;
+            focusRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
         }
 
-        void UpdateMeterFill() 
+        public IEnumerator Bar(Image bar, float target) 
         {
-            _healthBar.fillAmount = Mathf.Lerp(_healthBar.fillAmount, _player.Meters.HealthNormalized(), 2 * Time.deltaTime);
-            _breathBar.fillAmount = Mathf.Lerp(_breathBar.fillAmount, _player.Meters.BreathNormalized(), 2 * Time.deltaTime);
-            _focusBar.fillAmount = Mathf.Lerp(_focusBar.fillAmount, _player.Meters.FocusNormalized(), 2 * Time.deltaTime);
+            while(bar.fillAmount != target) 
+            {
+                bar.fillAmount  = Mathf.Lerp(bar.fillAmount, target, 2 * Time.deltaTime);
+            }
+
+            yield return null;
         }
     }
 }

@@ -396,6 +396,9 @@ MonoBehaviour:
     _alchemy:
       experience: 0
   _motor: {fileID: 292455247}
+  Direction: {x: 0, y: 0, z: 0}
+  Jump: 0
+  Sprint: 0
 --- !u!114 &292455247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,21 +411,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debc6ee60240c44c0a9724797ecda5fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 2
-  _sprintSpeed: 3
+  _baseSpeed: 3
+  _walkMultiplier: 0.6
+  _sprintMultiplier: 1.5
   _slopeLimit: 50
   _stepLimit: 0.4
   _jumpHeight: 3
   _groundedDistance: 0.183
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  _isSprinting: 0
-  _isGrounded: 0
-  groundDistance: 0
-  slopeAngle: 0
-  stepHeight: 0
-  footY: 0
+    m_Bits: 8
 --- !u!114 &292455248
 MonoBehaviour:
   m_ObjectHideFlags: 0

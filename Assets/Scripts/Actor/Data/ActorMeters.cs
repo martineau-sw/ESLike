@@ -29,6 +29,7 @@ namespace ESLike.Actor
             Tick.OnTick += (s, e) => _health.Tick_Regen(attributes.GetHealthTick());
             Tick.OnTick += (s, e) => _breath.Tick_Regen(attributes.GetBreathTick());
             Tick.OnTick += (s, e) => _focus.Tick_Regen(attributes.GetFocusTick());
+
         }
     }
 
@@ -40,51 +41,34 @@ namespace ESLike.Actor
         [SerializeField]
         int _max;
 
-        public event EventHandler OnEmpty;
-        public event EventHandler OnRegen;
-        public event EventHandler OnDegen;
-        public event EventHandler OnFull;
+        public event EventHandler<OnChangeEventArgs> OnEmpty;
+        public event EventHandler<OnChangeEventArgs> OnChange;
+        public event EventHandler<OnChangeEventArgs> OnFull;
     
         public int Value 
         {
             get => _value;
             set 
             {
-                // Clamp min
-                if(_value <= 0f) 
-                {
-                    if(value <= 0f) 
-                    {
-                        _value = 0f;
-                        return;
-                    }
-                    
-                }
+                if(value == _value) return;
 
-                // Clamp max
-                if(_value >= max) 
-                {
-                    if(value >= _max) 
-                    {
-                        _value = _max;
-                        return;
-                    }
-                }
+                value = Mathf.Clamp(value, 0, _max);
 
-                if(value >= _max) 
+                if(value == _max) 
                 {
-                    OnFull?.Invoke(this, null);
+                    OnFull?.Invoke(this, new OnChangeEventArgs(_value, value));
+                    _value = _max;
                     return;
                 }
 
-                if(value <= 0f)
+                if(value == 0)
                 {
-                    OnEmpty?.Invoke(this, null);
+                    OnEmpty?.Invoke(this, new OnChangeEventArgs(_value, value));
+                    _value = 0;
                     return;
                 }
 
-                if(value > _value) OnRegen?.Invoke(this, null);
-                if(value < _value) OnDegen?.Invoke(this, null);
+                OnChange?.Invoke(this, new OnChangeEventArgs(_value, value));
                 _value = value;
                 
             }
@@ -96,6 +80,7 @@ namespace ESLike.Actor
             set => _max = value < 1 ? 1 : value;
         }
 
+        public float Normal => Value / Max;
         public Meter(int max) 
         {
             _value = max;
@@ -106,6 +91,24 @@ namespace ESLike.Actor
         {
             Value += value;
         }
+
+        public class OnChangeEventArgs : EventArgs 
+        {
+
+            readonly int _prev;
+            readonly int _current;       
+
+            public int Previous => _prev;
+            public int Current => _current;
+            public int Difference => _current - _prev;
+            public int Distance => Mathf.Abs(_current - _prev);
+
+            public OnChangeEventArgs(int prev, int current) 
+            {
+                _prev = prev;
+                _current = current;
+            }
+         }
     }
 
 

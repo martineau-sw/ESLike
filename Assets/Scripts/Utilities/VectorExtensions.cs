@@ -19,6 +19,14 @@ namespace ESLike.Utilities
         {
             return new Vector3(vector.x, 0, vector.y);
         }
+
+        public static Vector3 ClampXZ(this Vector3 vector, float min, float max) 
+        {
+            vector.x = Mathf.Clamp(vector.x, min, max);
+            vector.z = Mathf.Clamp(vector.z, min, max);
+
+            return vector;
+        }
     }
 }
     

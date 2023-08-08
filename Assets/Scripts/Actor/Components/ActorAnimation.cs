@@ -35,7 +35,7 @@ namespace ESLike.Actor
             _animator.SetFloat("VelocityY", _rigidbody.velocity.y);
 
             _animator.SetBool("HardLanding", _motor.HardLanding);
-            _animator.SetBool("Airborne", _motor.Airborne);
+            _animator.SetBool("Airborne", !_motor.Grounded);
         }
     }
 }

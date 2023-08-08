@@ -13,7 +13,7 @@ namespace ESLike.Player
         InputActionAsset _actionAsset;
 
         InputAction _moveAction;
-        InputAction _runActions;
+        InputAction _runAction;
         InputAction _sprintAction;
         InputAction _jumpAction;
         InputAction _lookAction;
@@ -85,7 +85,7 @@ namespace ESLike.Player
         void WirePlayerMovement()
         {
             Vector2 moveInputRotated = _moveInput.Rotate(_characterCamera.transform.eulerAngles.y);
-            Vector3 direction = ClampXZ(direction, moveInputRotated.Vector2ToXZ(), 5f);
+            Vector3 direction = moveInputRotated.Vector2ToXZ().ClampXZ(-1, 1);
 
             _motor.Walk = _runToggle;
             _motor.Sprint = _sprintAction.IsPressed();
@@ -106,14 +106,6 @@ namespace ESLike.Player
         void ToggleRun()
         {
             if(_runAction.WasPressedThisFrame()) _runToggle = !_runToggle;
-        }
-
-        Vector3 ClampXZ(Vector3 raw, Vector3 desired, float stepCoeffecient) 
-        {
-            direction.x = Mathf.Clamp(direction.x, -1, 1);
-            direction.z = Mathf.Clamp(direction.z, -1, 1);
-
-            return direction;
         }
     }
 }
