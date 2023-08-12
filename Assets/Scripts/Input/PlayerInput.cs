@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using ESLike.Utilities;
 using ESLike.Actor;
+using System;
 
 namespace ESLike.Player
 {
@@ -33,6 +34,8 @@ namespace ESLike.Player
         {
             _runToggle = true;
             GetComponents();
+            ExpressionEvaluator.Evaluate("2+2", out int result);
+            Debug.Log(result);
         }
 
         void Awake()

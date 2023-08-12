@@ -27,32 +27,32 @@ namespace ESLike.Actor
         public int Strength 
         {
             get => _strength;
-            set => _strength = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _strength = value;
         } 
         public int Constitution 
         {
             get => _constitution;
-            set => _constitution = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _constitution = value;
         } 
         public int Dexterity 
         {
             get => _dexterity;
-            set => _dexterity = ActorUtility.Clamp(value, ATTRIBUTE_CAP);
+            set => _dexterity = value;
         } 
         public int Intelligence 
         {
             get => _intelligence;
-            set => _intelligence = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _intelligence = value; 
         } 
         public int Wisdom 
         {
             get => _wisdom;
-            set => _wisdom = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _wisdom = value; 
         } 
         public int Charisma 
         {
             get => _charisma;
-            set => _charisma = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
+            set => _charisma = value; 
         } 
 
         public Attributes(int strength, int constitution, int dexterity, int intelligence, int wisdom, int charisma)

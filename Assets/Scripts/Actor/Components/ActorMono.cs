@@ -37,7 +37,9 @@ namespace ESLike.Actor
         {
             base.Start();
 
-            _attributes = new Attributes(0);
+            _attributes = new Attributes(1, 2, 3, 0, -1, -2);
+            _skills = new ActorSkills(_attributes);
+
 
             _health = new Meter(_attributes.GetMaxHealth());
             _breath = new Meter(_attributes.GetMaxBreath());
@@ -47,7 +49,6 @@ namespace ESLike.Actor
             Tick.OnTick += (s, e) => _breath.Tick_Regen(_attributes.GetBreathTick());
             Tick.OnTick += (s, e) => _focus.Tick_Regen(_attributes.GetFocusTick());
 
-            _skills = new ActorSkills();
         }
 
         new void Update() 

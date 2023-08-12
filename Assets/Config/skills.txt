@@ -1,0 +1,12 @@
+heavyArmor, str * 5, 0
+lightArmor, con * 5, 0
+unarmored, dex * 5, 0
+heavyWeapon, int * 5, 0
+lightWeapon, wis * 5, 0
+unarmed, cha * 5, 0
+elemental, str * 5, 0
+black, con * 5, 0
+white, dex * 5, 0
+ritual, int * 5, 0
+enchanting, wis * 5, 0
+alchemy, cha * 5, 0

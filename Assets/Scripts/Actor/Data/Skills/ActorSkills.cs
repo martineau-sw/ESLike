@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace ESLike.Actor.Skills 
 {
     [Serializable]
@@ -12,9 +11,14 @@ namespace ESLike.Actor.Skills
         [SerializeReference]
         List<Skill> _skills;
 
-        public ActorSkills()
+        public ActorSkills(Attributes attributes)
         {
-            _skills = new List<Skill>();
+            _skills = Serialization.Skills.FromTXT("skills");
+
+            foreach(Skill skill in _skills) 
+            {
+                skill.XP += SkillParser.Evaluate(attributes, skill.Formula);
+            }
         }
     }
 }
