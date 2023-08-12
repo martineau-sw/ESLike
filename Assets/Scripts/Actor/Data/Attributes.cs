@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ESLike.Actor;
+using ESLike.Serialization;
 
 namespace ESLike.Actor
 {
-    [CreateAssetMenu(fileName = "ActorAttributes", menuName = "ScriptableObjects/Actor/Attributes", order = 1)]
-    public class ActorAttributes : ScriptableObject
+    [System.Serializable]
+    public class Attributes 
     {
         const int ATTRIBUTE_CAP = 50;
 
@@ -53,5 +54,25 @@ namespace ESLike.Actor
             get => _charisma;
             set => _charisma = ActorUtility.Clamp(value, ATTRIBUTE_CAP); 
         } 
+
+        public Attributes(int strength, int constitution, int dexterity, int intelligence, int wisdom, int charisma)
+        {
+            _strength = strength;
+            _constitution = constitution;
+            _dexterity = dexterity;
+            _intelligence = intelligence;
+            _wisdom = wisdom;
+            _charisma = charisma;
+        }
+
+        public Attributes(int start) 
+        {
+            _strength = start;
+            _constitution = start;
+            _dexterity = start;
+            _intelligence = start;
+            _wisdom = start;
+            _charisma = start;
+        }
     }
 }

@@ -18,22 +18,20 @@ namespace ESLike.UI
         [SerializeField]
         ActorMono _player;
 
+
         void Awake() 
         {
+            _player = GameObject.FindWithTag("Player").GetComponent<ActorMono>();
+
             SetMeterLength();
             SetEvents();
         }
 
-        // Update is called once per frame
-        void LateUpdate()
-        {
-        }
-
         void SetEvents()
         {
-            _player.Meters.Health.OnChange += (s, e) => StartCoroutine(Bar(_healthBar, _player.Meters.Health.Normal));
-            _player.Meters.Focus.OnChange += (s, e) => StartCoroutine(Bar(_focusBar, _player.Meters.Focus.Normal));
-            _player.Meters.Breath.OnChange += (s, e) => StartCoroutine(Bar(_breathBar, _player.Meters.Breath.Normal));
+            _player.Health.OnChange += (s, e) => StartCoroutine(Bar(_healthBar, _player.Health.Normal));
+            _player.Focus.OnChange += (s, e) => StartCoroutine(Bar(_focusBar, _player.Focus.Normal));
+            _player.Breath.OnChange += (s, e) => StartCoroutine(Bar(_breathBar, _player.Breath.Normal));
         }
 
         void SetMeterLength()
@@ -45,15 +43,15 @@ namespace ESLike.UI
 
             Vector2 sizeDelta = new Vector2 { y = healthRect.sizeDelta.y };
 
-            sizeDelta.x = _player.Meters.Health.Max;
+            sizeDelta.x = _player.Health.Max;
             healthRect.sizeDelta = sizeDelta;
             healthRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
 
-            sizeDelta.x = _player.Meters.Breath.Max;
+            sizeDelta.x = _player.Breath.Max;
             breathRect.sizeDelta = sizeDelta;
             breathRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
 
-            sizeDelta.x = _player.Meters.Focus.Max;
+            sizeDelta.x = _player.Focus.Max;
             focusRect.sizeDelta = sizeDelta;
             focusRect.transform.parent.GetChild(1).GetComponent<RectTransform>().sizeDelta = sizeDelta;
         }
@@ -62,7 +60,7 @@ namespace ESLike.UI
         {
             while(bar.fillAmount != target) 
             {
-                bar.fillAmount  = Mathf.Lerp(bar.fillAmount, target, 2 * Time.deltaTime);
+                bar.fillAmount = Mathf.Lerp(bar.fillAmount, target, 2 * Time.deltaTime);
             }
 
             yield return null;

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7908780386014897539}
   - component: {fileID: 9195860985220388363}
   - component: {fileID: 9079846864586409375}
-  - component: {fileID: 7191500210811685027}
-  - component: {fileID: 3025232548076080070}
   - component: {fileID: 6439070415411974072}
+  - component: {fileID: 3211057115415056959}
+  - component: {fileID: 728180528619824704}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -87,45 +87,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!114 &7191500210811685027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4769906116655096555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b87731c5cc84be38d6b27fccaf410a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3025232548076080070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4769906116655096555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a52a751fc0d04c4d999225f8033423b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _runSpeed: 3
-  _sprintSpeed: 4
-  _slopeLimit: 50
-  _stepLimit: 0.4
-  _jumpHeight: 3
-  _groundedDistance: 0.5
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _isSprinting: 0
-  _isGrounded: 0
-  groundDistance: 0
-  slopeAngle: 0
-  stepHeight: 0
-  footY: 0
 --- !u!114 &6439070415411974072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,6 +100,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _actionAsset: {fileID: -944628639613478452, guid: b9590653a748943ddbd030aaf7dbf53f, type: 3}
+--- !u!114 &3211057115415056959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769906116655096555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c9fc2b4856a42a6a0b2751149de220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseSpeed: 2
+  _walkMultiplier: 0.6
+  _sprintMultiplier: 1.5
+  _slopeLimit: 50
+  _stepLimit: 0.4
+  _jumpHeight: 3
+  _groundedDistance: 0.01
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  _attributes:
+    _strength: 0
+    _constitution: 0
+    _dexterity: 0
+    _intelligence: 0
+    _wisdom: 0
+    _charisma: 0
+  _health:
+    _value: 0
+    _max: 0
+  _breath:
+    _value: 0
+    _max: 0
+  _focus:
+    _value: 0
+    _max: 0
+--- !u!114 &728180528619824704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769906116655096555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279b96cd86a4c43df947b38e9c1bd4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5254570529212644484
 PrefabInstance:
   m_ObjectHideFlags: 0

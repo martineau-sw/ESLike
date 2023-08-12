@@ -347,7 +347,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4769906116655096555, guid: 467481bd20a5a45188d599d4e22a1cf8, type: 3}
   m_PrefabInstance: {fileID: 2136668856342481317}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &292455246
+--- !u!114 &292455248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -356,9 +356,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 292455232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76b09f0ded12435b9ae599afa997ed8, type: 3}
+  m_Script: {fileID: 11500000, guid: 279b96cd86a4c43df947b38e9c1bd4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &292455253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292455232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c9fc2b4856a42a6a0b2751149de220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseSpeed: 2
+  _walkMultiplier: 0.6
+  _sprintMultiplier: 1.5
+  _slopeLimit: 50
+  _stepLimit: 0.4
+  _jumpHeight: 3
+  _groundedDistance: 0.001
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   _attributes: {fileID: 11400000, guid: 682085fed663f4d80a53539aa4f9c6a5, type: 2}
   _meters:
     _health:
@@ -395,44 +417,6 @@ MonoBehaviour:
       experience: 0
     _alchemy:
       experience: 0
-  _motor: {fileID: 292455247}
-  Direction: {x: 0, y: 0, z: 0}
-  Jump: 0
-  Sprint: 0
---- !u!114 &292455247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292455232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: debc6ee60240c44c0a9724797ecda5fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _baseSpeed: 3
-  _walkMultiplier: 0.6
-  _sprintMultiplier: 1.5
-  _slopeLimit: 50
-  _stepLimit: 0.4
-  _jumpHeight: 3
-  _groundedDistance: 0.183
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
---- !u!114 &292455248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292455232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 279b96cd86a4c43df947b38e9c1bd4e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &365210313
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +884,7 @@ MonoBehaviour:
   _healthBar: {fileID: 367490825}
   _breathBar: {fileID: 365210315}
   _focusBar: {fileID: 452015933}
-  _player: {fileID: 292455246}
+  _player: {fileID: 0}
 --- !u!1 &499113945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,10 +1675,7 @@ PrefabInstance:
       addedObject: {fileID: 292455248}
     - targetCorrespondingSourceObject: {fileID: 4769906116655096555, guid: 467481bd20a5a45188d599d4e22a1cf8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 292455247}
-    - targetCorrespondingSourceObject: {fileID: 4769906116655096555, guid: 467481bd20a5a45188d599d4e22a1cf8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 292455246}
+      addedObject: {fileID: 292455253}
   m_SourcePrefab: {fileID: 100100000, guid: 467481bd20a5a45188d599d4e22a1cf8, type: 3}
 --- !u!1001 &8746748980266873422
 PrefabInstance:

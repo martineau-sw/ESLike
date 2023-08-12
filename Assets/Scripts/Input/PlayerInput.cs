@@ -23,16 +23,15 @@ namespace ESLike.Player
         
         #region MonoBehaviours
         GameObject _player;
-        ActorMotor _motor;
+        ActorMono _actor;
         PlayerCamera _characterCamera;
         #endregion
 
         bool _runToggle;
-
-        float SpeedMultiplier => _runToggle || _motor.Sprint ? 1f : 0.5f;
         
         void Start()
         {
+            _runToggle = true;
             GetComponents();
         }
 
@@ -54,8 +53,7 @@ namespace ESLike.Player
 
         void GetComponents()
         {
-            _player = GameObject.FindWithTag("Player");
-            _motor = _player.GetComponent<ActorMotor>();
+            _actor = GameObject.FindWithTag("Player").GetComponent<ActorMono>();
             _characterCamera = Camera.main.transform.root.GetComponent<PlayerCamera>();
         }
 
@@ -84,23 +82,22 @@ namespace ESLike.Player
 
         void WirePlayerMovement()
         {
-            Vector2 moveInputRotated = _moveInput.Rotate(_characterCamera.transform.eulerAngles.y);
-            Vector3 direction = moveInputRotated.Vector2ToXZ().ClampXZ(-1, 1);
-
-            _motor.Walk = _runToggle;
-            _motor.Sprint = _sprintAction.IsPressed();
-
-            direction *= SpeedMultiplier;
-
-            if(direction.magnitude > 1f) direction.Normalize();
-            
-            _motor.Move(direction);
-            _motor.Jump(_jumpAction.WasPressedThisFrame());
+            _actor.Walk = _runToggle;
+            _actor.SprintInput = _sprintAction.IsPressed();
+            _actor.DirectionInput = AdjustMoveDirectionToCamera(_moveInput);
+            if(_jumpAction.IsPressed()) _actor.Jump();
         }
 
         void WirePlayerCamera()
         {
             _characterCamera.UpdateCamera(_lookInput);
+        }
+
+        Vector3 AdjustMoveDirectionToCamera(Vector2 input)
+        {
+            input = input.Rotate(_characterCamera.transform.eulerAngles.y);
+            Vector3 direction = input.Vector2ToXZ().ClampXZ(-1, 1);
+            return direction.magnitude > 1f ? direction.normalized : direction;
         }
 
         void ToggleRun()

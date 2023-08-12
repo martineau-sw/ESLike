@@ -47,23 +47,11 @@ namespace ESLike.Actor
         #region Properties
         
         public float Speed => _rigidbody.velocity.magnitude;
-        public bool Sprint {get; set;}
-        public bool Grounded 
-        {
-            get 
-            {
-                float distance = 10;
-                Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * distance);
-                if (Physics.Raycast(ray, out RaycastHit hit, distance, _groundLayer))
-                    distance = hit.distance;
-
-                Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
-                return distance - 0.5f <= _groundedDistance;
-            }
-        }
-        public bool Walk {private get; set;}
-        public bool HardLanding {get; private set;}
-        public float MoveMultiplier 
+        protected bool Sprint {get; set;}
+        public bool Grounded  {get;set;}
+        public bool Walk {get; set;}
+        public bool HardLanding {get; set;}
+        float MoveMultiplier 
         {
             get 
             {
@@ -73,30 +61,30 @@ namespace ESLike.Actor
                 return 1f;
             }
         }
-
         bool PreventMovement => _moveDelay > 0f;
         float TargetMoveSpeed => _baseSpeed * MoveMultiplier;
         bool CanStepOver => _stepHeight < _stepLimit && Mathf.Abs(_stepHeight) > Mathf.Epsilon && Grounded;
             
         #endregion
 
-        void Start()
+        protected void Start()
         {
             _rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<CapsuleCollider>();
         }
 
-        void Update() 
+        protected void Update() 
         {
+            Grounded = CheckGrounded();
             PreventMovementTimer();
         }
 
-        void LateUpdate()
+        protected void LateUpdate()
         {
             TriggerHardLanding();
         }
 
-        public void Move(Vector3 direction) 
+        protected void Move(Vector3 direction) 
         {
             direction = Vector3.Lerp(_lastDirection, direction, 6 * Time.deltaTime);
             Vector3 targetPosition = _rigidbody.position + direction * TargetMoveSpeed * Time.deltaTime;
@@ -121,11 +109,11 @@ namespace ESLike.Actor
             _rigidbody.velocity = targetVelocity;
         } 
 
-        public void Jump(bool input)
+        public void Jump()
         {
             Vector3 velocity = _rigidbody.velocity;
             velocity.y = _jumpHeight;
-            if(input && Grounded) _rigidbody.velocity = velocity;
+            if(Grounded) _rigidbody.velocity = velocity;
         }
 
         void TriggerHardLanding() 
@@ -156,6 +144,17 @@ namespace ESLike.Actor
         {
             bool lineHit = Physics.Linecast(transform.position, transform.position + direction.normalized * _collider.radius, out RaycastHit hit, _groundLayer);
             return (lineHit ? Vector3.Angle(Vector3.up, hit.normal) : 0f) < _slopeLimit;
+        }
+        
+        bool CheckGrounded()
+        {
+            float distance = 10;
+            Ray ray = new Ray(transform.position + Vector3.up, Vector3.down * distance);
+            if (Physics.Raycast(ray, out RaycastHit hit, distance, _groundLayer))
+                distance = hit.distance;
+
+            Debug.DrawRay(ray.origin, ray.direction * distance, Color.red);
+            return distance - 0.5f <= _groundedDistance;
         }
     }
 }
