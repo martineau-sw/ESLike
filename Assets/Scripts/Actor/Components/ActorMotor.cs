@@ -47,7 +47,7 @@ namespace ESLike.Actor
         #region Properties
         
         public float Speed => _rigidbody.velocity.magnitude;
-        protected bool Sprint {get; set;}
+        public bool Sprint {get; set;}
         public bool Grounded  {get;set;}
         public bool Walk {get; set;}
         public bool HardLanding {get; set;}

@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using ESLike.Actor;
-using ESLike.Serialization;
+
 
 namespace ESLike.Actor
 {

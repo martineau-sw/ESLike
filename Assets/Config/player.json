@@ -1,0 +1,223 @@
+{
+    "_attributes": {
+        "_strength": 1,
+        "_constitution": 2,
+        "_dexterity": 3,
+        "_intelligence": 0,
+        "_wisdom": -1,
+        "_charisma": -2
+    },
+    "_health": {
+        "_value": 110,
+        "_max": 110
+    },
+    "_breath": {
+        "_value": 105,
+        "_max": 105
+    },
+    "_focus": {
+        "_value": 100,
+        "_max": 100
+    },
+    "_skills": {
+        "_skills": [
+            {
+                "rid": 1000
+            },
+            {
+                "rid": 1001
+            },
+            {
+                "rid": 1002
+            },
+            {
+                "rid": 1003
+            },
+            {
+                "rid": 1004
+            },
+            {
+                "rid": 1005
+            },
+            {
+                "rid": 1006
+            },
+            {
+                "rid": 1007
+            },
+            {
+                "rid": 1008
+            },
+            {
+                "rid": 1009
+            },
+            {
+                "rid": 1010
+            },
+            {
+                "rid": 1011
+            }
+        ]
+    },
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "heavyArmor",
+                    "_formula": "str * 5",
+                    "_experience": 5
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "lightArmor",
+                    "_formula": "con * 5",
+                    "_experience": 10
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "unarmored",
+                    "_formula": "dex * 5",
+                    "_experience": 15
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "heavyWeapon",
+                    "_formula": "int * 5",
+                    "_experience": 0
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "lightWeapon",
+                    "_formula": "wis * 5",
+                    "_experience": -5
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "unarmed",
+                    "_formula": "cha * 5",
+                    "_experience": -10
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "elemental",
+                    "_formula": "str * 5",
+                    "_experience": 5
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "black",
+                    "_formula": "con * 5",
+                    "_experience": 10
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "white",
+                    "_formula": "dex * 5",
+                    "_experience": 15
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "ritual",
+                    "_formula": "int * 5",
+                    "_experience": 0
+                }
+            },
+            {
+                "rid": 1010,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "enchanting",
+                    "_formula": "wis * 5",
+                    "_experience": -5
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "Skill",
+                    "ns": "ESLike.Actor.Skills",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "_name": "alchemy",
+                    "_formula": "cha * 5",
+                    "_experience": -10
+                }
+            }
+        ]
+    }
+}

@@ -24,8 +24,8 @@ namespace ESLike.Player
         
         #region MonoBehaviours
         GameObject _player;
-        ActorMono _actor;
-        PlayerCamera _characterCamera;
+        PlayerMotor _motor;
+        PlayerCamera _camera;
         #endregion
 
         bool _runToggle;
@@ -56,8 +56,8 @@ namespace ESLike.Player
 
         void GetComponents()
         {
-            _actor = GameObject.FindWithTag("Player").GetComponent<ActorMono>();
-            _characterCamera = Camera.main.transform.root.GetComponent<PlayerCamera>();
+            _motor = GameObject.FindWithTag("Player").GetComponent<PlayerMotor>();
+            _camera = Camera.main.transform.root.GetComponent<PlayerCamera>();
         }
 
         void InitializeInput() 
@@ -85,20 +85,20 @@ namespace ESLike.Player
 
         void WirePlayerMovement()
         {
-            _actor.Walk = _runToggle;
-            _actor.SprintInput = _sprintAction.IsPressed();
-            _actor.DirectionInput = AdjustMoveDirectionToCamera(_moveInput);
-            if(_jumpAction.IsPressed()) _actor.Jump();
+            _motor.Walk = _runToggle;
+            _motor.Sprint = _sprintAction.IsPressed();
+            _motor.TargetVelocity = AdjustMoveDirectionToCamera(_moveInput);
+            if(_jumpAction.IsPressed()) _motor.Jump();
         }
 
         void WirePlayerCamera()
         {
-            _characterCamera.UpdateCamera(_lookInput);
+            _camera.UpdateCamera(_lookInput);
         }
 
         Vector3 AdjustMoveDirectionToCamera(Vector2 input)
         {
-            input = input.Rotate(_characterCamera.transform.eulerAngles.y);
+            input = input.Rotate(_camera.transform.eulerAngles.y);
             Vector3 direction = input.Vector2ToXZ().ClampXZ(-1, 1);
             return direction.magnitude > 1f ? direction.normalized : direction;
         }

@@ -32,7 +32,7 @@ namespace ESLike.Serialization
                 Skill skill = new Skill(skillTag, expression, int.Parse(additionalXP));
                 skills.Add(skill);
             }
-            
+
             return skills;
         }
     }
@@ -44,9 +44,9 @@ namespace ESLike.Serialization
             return JsonUtility.FromJson<ActorMono>(File.ReadAllText($"{Serializer.PATH}{fileName}.json"));
         }
 
-        public static void ToJSON(this ActorMono attributes, string fileName) 
+        public static void ToJSON(this ActorMono actor, string fileName) 
         {
-            string json = JsonUtility.ToJson(attributes, true);
+            string json = JsonUtility.ToJson(actor, true);
             string file = $"{Serializer.PATH}{fileName}.json";
 
             File.WriteAllText(file, json);

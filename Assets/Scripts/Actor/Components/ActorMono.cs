@@ -1,14 +1,13 @@
 
-using System.Collections.Generic;
 using UnityEngine;
 
 using ESLike.Actor.Extensions;
 using ESLike.Actor.Skills;
-using System;
+using ESLike.Serialization;
 
 namespace ESLike.Actor 
 {
-    public class ActorMono : ActorMotor, IActorMeters
+    public class ActorMono : MonoBehaviour, IActorMeters
     {
         [SerializeField] 
         Attributes _attributes;
@@ -33,10 +32,8 @@ namespace ESLike.Actor
         public Attributes Attributes => _attributes;
         public ActorSkills Skills => _skills;
 
-        new void Start() 
+        void Start() 
         {
-            base.Start();
-
             _attributes = new Attributes(1, 2, 3, 0, -1, -2);
             _skills = new ActorSkills(_attributes);
 
@@ -48,25 +45,11 @@ namespace ESLike.Actor
             Tick.OnTick += (s, e) => _health.Tick_Regen(_attributes.GetHealthTick());
             Tick.OnTick += (s, e) => _breath.Tick_Regen(_attributes.GetBreathTick());
             Tick.OnTick += (s, e) => _focus.Tick_Regen(_attributes.GetFocusTick());
-
-        }
-
-        new void Update() 
-        {
-            base.Update();
-
-            Sprint = _breath.Value > 0 && SprintInput;
-        
-            Move(DirectionInput);
-        }
-
-        new void LateUpdate() 
-        {
-            
         }
 
         void OnApplicationQuit() 
         {
+            this.ToJSON("player");
         }
     }
 }
